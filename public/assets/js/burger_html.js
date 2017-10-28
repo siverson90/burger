@@ -16,6 +16,8 @@ $(function() {
       data: newBurger
     }).then(function() {
       console.log("New Burger added");
+
+      location.reload();
       }
     );
   });

@@ -17,19 +17,16 @@ router.get("/", function(req, res) {
     console.log(burgerObj);
     res.render("index", burgerObj);
   });
-  // will need to update with views
 });
 
-// Route for inserting one burger
-// add an a href to the input field
+
 router.post("/api/burgers", function(req, res) {
-  var burgerName = req.body.burger_name;
 
-  console.log(burgerName)
-
-  // will need to update with views
-  res.send("<h1> post works works</h1>");
-})
+  burger.insertOne (["burger_name"],[req.body.burger_name], function(result){
+    res.json({id: result.insertId}
+      );
+  });
+});
 
 router.put("/", function(req, res) {
   console.log("get route works");
