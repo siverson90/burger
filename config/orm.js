@@ -12,6 +12,22 @@ function generateQuestionMarks(values){
   return newArray.toString();
 }
 
+function objectToSql(obj){
+  var arr = [];
+
+  for (var key in obj) {
+    var value = obj[key];
+
+    if (Object.hasOwnProperty.call(obj,key)) {
+      if(typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = "'" + value + "'";
+      }
+      arr.push(key + " = " + value);
+    }
+  }
+  return arr.toString();
+}
+
 var orm = {
   // Need to only pass a callback function
   selectAll: function(cb){
@@ -24,10 +40,6 @@ var orm = {
     })
   },
   insertOne: function(tableName, column, value, cb) { 
-    console.log("t "+ tableName);
-    console.log("c "+ column);
-    console.log("v "+ value);
-    console.log("cb "+cb);
 
     var queryString = "INSERT INTO "+ tableName;
 
@@ -49,7 +61,33 @@ var orm = {
       }
     });
   },
-  updateOne: function(){},
+  
+  updateOne: function(tableName, column, value, cb) {
+    console.log("t "+ tableName);
+    console.log("c "+ column);
+    console.log("v "+ value);
+    console.log("cb "+cb);
+
+    // UPDATE table_name
+    // SET column1 = value1, column2 = value2, ...
+    // WHERE condition;
+
+    var queryString = "UPDATE " + tableName;
+    queryString += " SET";
+    queryString += " "+ objectToSql(column);
+    queryString += " WHERE ";
+    queryString += value;
+
+    console.log(queryString);
+
+    connection.query(queryString,value, function(err,result){
+      if (err) {
+        throw err;
+      } else {
+        cb(result);
+      }
+    });
+  }
 }
 
 module.exports = orm;

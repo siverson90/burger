@@ -21,4 +21,28 @@ $(function() {
       }
     );
   });
+
+  $(".eat-burger").on("click", function(event){
+    
+
+    var burgerName = $(this).data("burger");
+    var id = $(this).data("id");
+    var eatenState = true;
+
+
+    eatBurger = {
+      burger_name: burgerName,
+      id: id,
+      devoured: eatenState
+
+    }
+
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT",
+      data: eatBurger
+    }).then(function(){
+      console.log("Burger has been eaten");
+      location.reload();
+    })
+  });
 });

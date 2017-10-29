@@ -4,7 +4,7 @@ var orm = require("../config/orm.js");
 var burger = {
 
   all: function(cb) {
-    orm.selectAll(function(res){
+    orm.selectAll(function(res) {
       cb(res);
     });
   },
@@ -13,7 +13,18 @@ var burger = {
     orm.insertOne("burgers",column,value,function(res){
       cb(res);
     });
-  }
+  },
+
+  updateOne: function(column,value,cb) {
+    console.log(column);
+    console.log(value);
+    console.log(cb);
+    
+    orm.updateOne("burgers", column, value, function(res){
+      cb(res);
+    });
+  } 
+
 }
 
 module.exports = burger;
