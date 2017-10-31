@@ -8,7 +8,7 @@ h1 {
 }
 
 h2 {
-  text-align: center;
+  text-align: left;
 }
 
 .eat-burger {
@@ -20,8 +20,7 @@ h2 {
 }
 
 form {
-  margin: auto;
-  display: block;
+  text-align: center;
 }
 
 .submit-btn {
@@ -32,4 +31,13 @@ form {
   max-width: 300px;
   margin: auto;
   display: block;
+}
+
+.form-div{
+  margin: auto;
+  display: block;
+}
+
+.add-burger {
+  text-align: center;
 }
